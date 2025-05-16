@@ -198,7 +198,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/ttracker/dev/1747364752986-2025-05-16T03:05:52.986Z/ttracker.zip"
+                "S3Key": "serverless/ttracker/dev/1747366726410-2025-05-16T03:38:46.410Z/ttracker.zip"
               },
               "Handler": "server/handler.getLastReset",
               "Runtime": "nodejs18.x",
@@ -223,7 +223,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/ttracker/dev/1747364752986-2025-05-16T03:05:52.986Z/ttracker.zip"
+                "S3Key": "serverless/ttracker/dev/1747366726410-2025-05-16T03:38:46.410Z/ttracker.zip"
               },
               "Handler": "server/handler.reset",
               "Runtime": "nodejs18.x",
@@ -241,24 +241,24 @@
               "ResetLogGroup"
             ]
           },
-          "GetLastResetLambdaVersionwoUBn62Fdw0gJRc8POrgHZDHXcWaqm9siIAw9PQo": {
+          "GetLastResetLambdaVersionAxHMrBHPpsKChSk8gWaqAsTKGqMUKFPnHF5reWAXbw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetLastResetLambdaFunction"
               },
-              "CodeSha256": "RTGCiegz1DIWah76FokQMBYenMToFhTcRpdlwT9ceQc="
+              "CodeSha256": "BOSS042pbRxLwyRF0CmdbEM6ERo7EIC1YKoB/C3qfxk="
             }
           },
-          "ResetLambdaVersionhUUhBZUwcoa8qpISdiIXiw4TlBlVqr7cXb1QItEqRU": {
+          "ResetLambdaVersionv96jNrjyXbqqOpU4bfYIEJiCkqCs50EbkOHtl3uVk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ResetLambdaFunction"
               },
-              "CodeSha256": "RTGCiegz1DIWah76FokQMBYenMToFhTcRpdlwT9ceQc="
+              "CodeSha256": "BOSS042pbRxLwyRF0CmdbEM6ERo7EIC1YKoB/C3qfxk="
             }
           },
           "ApiGatewayRestApi": {
@@ -494,7 +494,7 @@
               "ResetLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1747364743142": {
+          "ApiGatewayDeployment1747366716144": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -662,7 +662,7 @@
           "GetLastResetLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetLastResetLambdaVersionwoUBn62Fdw0gJRc8POrgHZDHXcWaqm9siIAw9PQo"
+              "Ref": "GetLastResetLambdaVersionAxHMrBHPpsKChSk8gWaqAsTKGqMUKFPnHF5reWAXbw"
             },
             "Export": {
               "Name": "sls-ttracker-dev-GetLastResetLambdaFunctionQualifiedArn"
@@ -671,7 +671,7 @@
           "ResetLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ResetLambdaVersionhUUhBZUwcoa8qpISdiIXiw4TlBlVqr7cXb1QItEqRU"
+              "Ref": "ResetLambdaVersionv96jNrjyXbqqOpU4bfYIEJiCkqCs50EbkOHtl3uVk"
             },
             "Export": {
               "Name": "sls-ttracker-dev-ResetLambdaFunctionQualifiedArn"
@@ -825,7 +825,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "GetLastResetLambdaVersionwoUBn62Fdw0gJRc8POrgHZDHXcWaqm9siIAw9PQo"
+        "versionLogicalId": "GetLastResetLambdaVersionAxHMrBHPpsKChSk8gWaqAsTKGqMUKFPnHF5reWAXbw"
       },
       "reset": {
         "handler": "server/handler.reset",
@@ -861,7 +861,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "ResetLambdaVersionhUUhBZUwcoa8qpISdiIXiw4TlBlVqr7cXb1QItEqRU"
+        "versionLogicalId": "ResetLambdaVersionv96jNrjyXbqqOpU4bfYIEJiCkqCs50EbkOHtl3uVk"
       }
     },
     "resources": {
@@ -954,7 +954,7 @@
     "artifact": "/Users/spencerjones/Code/personal/TTracker/.serverless/ttracker.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/ttracker/dev/1747364752986-2025-05-16T03:05:52.986Z",
+    "artifactDirectoryName": "serverless/ttracker/dev/1747366726410-2025-05-16T03:38:46.410Z",
     "artifact": "ttracker.zip"
   }
 }
