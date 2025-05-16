@@ -1,0 +1,14 @@
+{
+  "name": "ttracker",
+  "version": "1.0.0",
+  "description": "T Environment Outage Tracker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/local.js",
+    "deploy": "serverless deploy"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1531.0",
+    "serverless": "^3.38.0"
+  }
+} 

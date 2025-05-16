@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T Environment Outage Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 6rem;
+            margin: 0;
+            color: #2c3e50;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin: 1rem 0 2rem 0;
+        }
+        .timer {
+            font-size: 2.5rem;
+            margin: 2rem 0;
+            color: #2c3e50;
+        }
+        .reset-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .reset-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>T</h1>
+        <div class="subtitle">has been without an outage for:</div>
+        <div class="timer" id="timer">
+            Loading...
+        </div>
+        <button class="reset-button" id="resetButton">Reset Counter</button>
+    </div>
+    <audio id="wompSound" src="https://www.myinstants.com/media/sounds/sad-trombone.mp3" preload="auto"></audio>
+    <script>
+        let lastResetTime;
+
+        async function fetchLastResetTime() {
+            try {
+                const response = await fetch('/api/getLastReset');
+                const data = await response.json();
+                lastResetTime = new Date(data.timestamp);
+                updateTimer();
+            } catch (error) {
+                console.error('Error fetching last reset time:', error);
+            }
+        }
+
+        function updateTimer() {
+            if (!lastResetTime) return;
+            
+            const now = new Date();
+            const diff = now - lastResetTime;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById('timer').textContent = 
+                `${days} days, ${hours} hours, ${minutes} minutes`;
+        }
+
+        async function resetTimer() {
+            if (confirm('Are you sure you want to reset the counter?')) {
+                try {
+                    const response = await fetch('/api/reset', { method: 'POST' });
+                    const data = await response.json();
+                    lastResetTime = new Date(data.timestamp);
+                    document.getElementById('wompSound').play();
+                    updateTimer();
+                } catch (error) {
+                    console.error('Error resetting timer:', error);
+                }
+            }
+        }
+
+        document.getElementById('resetButton').addEventListener('click', resetTimer);
+        fetchLastResetTime();
+        setInterval(updateTimer, 60000); // Update every minute
+    </script>
+</body>
+</html> 

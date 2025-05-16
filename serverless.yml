@@ -1,0 +1,67 @@
+service: ttracker
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: !GetAtt OutageTable.Arn
+
+functions:
+  getLastReset:
+    handler: server/handler.getLastReset
+    events:
+      - http:
+          path: api/getLastReset
+          method: get
+          cors: true
+
+  reset:
+    handler: server/handler.reset
+    events:
+      - http:
+          path: api/reset
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    OutageTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ttracker-outages
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    StaticSite:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ttracker-site
+        WebsiteConfiguration:
+          IndexDocument: index.html
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          BlockPublicPolicy: false
+          IgnorePublicAcls: false
+          RestrictPublicBuckets: false
+
+    BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: !Ref StaticSite
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: '*'
+              Action: s3:GetObject
+              Resource: !Join ['', [!GetAtt StaticSite.Arn, '/*']] 
